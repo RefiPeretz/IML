@@ -36,12 +36,7 @@ class kNN(object):
         return np.linalg.norm(x-XList)
 
     def predictForOne(self,x):
-        dup = matlib.repmat(x, self.Xtrain.size/2,1 )
-        #dist = np.array([])
-        #dist = np.linalg.norm(x-self.Xtrain)
-        #for point in self.Xtrain:
 
-            #dist = np.append(dist,np.linalg.norm(x-point))
         y_sorted = self.Ytrain[np.argsort(np.linalg.norm(self.Xtrain - x,axis=1))]
         relevantDist = y_sorted[:self.K]
         #for index in relevantDistIndex:
@@ -70,8 +65,18 @@ class kNN(object):
         """
         # TODO - implement this method
 
+    def calcError(self,y_predict,y):
+        print(y.size,y_predict.size)
+        sumError = 0;
+        for i in range(0,y.size):
+            if y_predict[i] != y[i]:
+                sumError += 1
+        return sumError/y.size
 
     def error(self, X, y):
+
+        y_predict = self.predict(X)
+        return self.calcError(y_predict,y)
         """
         Returns
         -------
@@ -80,14 +85,14 @@ class kNN(object):
         # TODO - implement this method
 
 
-
 trainX = np.loadtxt("X_train.txt")
 trainY = np.loadtxt("y_train.txt")
 testX = np.loadtxt("X_train.txt")
 testY = np.loadtxt("y_train.txt")
 
-papo = kNN(10)
+papo = kNN(200)
 
 papo.train(trainX,trainY)
-
-decision_boundaries(papo,testX,testY,"title")
+error = papo.error(testX,testY)
+print(error)
+#decision_boundaries(papo,testX,testY,"title")

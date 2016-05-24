@@ -3,7 +3,7 @@
      Introduction to Machine Learning (67577)
 ===================================================
 
-Skeleton for the AdaBoost classifier.
+Skeleton for the AdaBoostadasdasdsad classifier.
 
 Author: Noga Zaslavsky
 Date: April, 2016

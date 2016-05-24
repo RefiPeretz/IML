@@ -1,9 +1,7 @@
 import numpy as np
 from matplotlib import pyplot
 import matplotlib.pyplot as plt
-import scipy.optimize as optimization
-from  sklearn import cross_validation
-#from builtins import range
+
 
 from array import *
 
@@ -18,16 +16,32 @@ Xtest = X[200:]
 Ytest = Y[200:]
 
 ####### training #########
-h_d = []
-for i in range(0, 15):
+h_d = [0]
+for i in range(1, 16):
     h_d.append(np.polyfit(Xtrain,Ytrain,i))
 
 for a in range(0,15):
-    plt.plot(h_d[a])
+    plt.plot(h_d[0])
     plt.show()
 
+def findH(h,x,y):
+    list_h_erros = []
+    for i in range(0,15):
+        list_h_erros.append(calcError(h[i],x,y,i+1))
+
+
+def calcError(h,x,y,i):
+    poly_list = [1]*i
+    error = 0
+    a = np.array(poly_list)
+    b = np.array(h)
+    for j in range(0,100):
+        1+1
+
+
+
 ####### validation ########
-def errorLs(hepoteza,x,y):
+def errorLs(hepo,x,y):
     LS = 0;
 
     LS = 0.0025 + 1
