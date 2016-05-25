@@ -13,6 +13,7 @@ Date: April, 2016
 import numpy as np
 from numpy import matlib
 from ex6_tools import decision_boundaries
+import matplotlib.pyplot as plt
 
 class kNN(object):
     def __init__(self, k):
@@ -87,12 +88,30 @@ class kNN(object):
 
 trainX = np.loadtxt("X_train.txt")
 trainY = np.loadtxt("y_train.txt")
-testX = np.loadtxt("X_train.txt")
-testY = np.loadtxt("y_train.txt")
+testX = np.loadtxt("X_val.txt")
+testY = np.loadtxt("y_val.txt")
 
-papo = kNN(200)
+k_list = [1,3,10,100,200,500]
+error_train =[]
+error_valid =[]
+for k in k_list:
+    papo = kNN(k)
+    papo.train(trainX, trainY)
+    error_train.append(papo.error(trainX,trainY))
+    error_valid.append(papo.error(testX, testY))
 
-papo.train(trainX,trainY)
-error = papo.error(testX,testY)
-print(error)
-#decision_boundaries(papo,testX,testY,"title")
+
+
+#print(error_valid)
+
+plt.xlabel("samples")
+plt.ylabel("error")
+plt.title("Knn algorithem - validation and training error")
+plt.plot(k_list,error_train,'r')
+plt.plot(k_list,error_valid,'g')
+plt.show()
+
+for a in k_list:
+    papo1 = kNN(a)
+    papo1.train(trainX, trainY)
+    decision_boundaries(papo1,trainX,trainY,'kNN decision boundaries and training data, K = '+str(a))
