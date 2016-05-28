@@ -1,3 +1,4 @@
+import matplotlib.patches as mpatches
 import numpy as np
 from matplotlib import pyplot
 import matplotlib.pyplot as plt
@@ -80,23 +81,34 @@ def kFold(Xpart,Ypart):
         h_all_error_train.append(erro_h_train)
         h_all_error_validation.append(error_h_validation)
 
-    plt.xlabel('blaa')
-    plt.ylabel("blaaaaa")
-    plt.title("Least Squares algorithm")
-    plt.plot(range(1,16),h_all_error_train,'r', label='training')
-    plt.plot(range(1,16),h_all_error_validation,'g', label="validation")
+
+    red_patch = mpatches.Patch(color='red', label='Training')
+    b_patch = mpatches.Patch(color='blue', label='Validation')
+    plt.legend(handles=[red_patch, b_patch])
+    plt.xlabel('Degree')
+    plt.ylabel("Error")
+    plt.title("Least Squares k-fold k = 5")
+    plt.plot(range(1,16),h_all_error_train,'r', label='Training')
+    plt.plot(range(1,16),h_all_error_validation,'b', label="Validation")
     plt.show()
 
 ############# ploting ####################
 list_erros_train = findH(h_d,Xtrain,Ytrain)
 list_erros_valid = findH(h_d,Xvalid,Yvalid)
 list_erros_test = findH(h_d,Xtest,Ytest)
-plt.xlabel('digree')
-plt.ylabel("error")
-plt.title("Least Squares algorithm")
-plt.plot(range(1,16),list_erros_train,'r', label='training')
-plt.plot(range(1,16),list_erros_valid,'g', label="validation")
-plt.plot(range(1,16),list_erros_test,'b',label="testing")
+
+
+
+red_patch = mpatches.Patch(color='red', label='Training')
+b_patch = mpatches.Patch(color='blue', label='Testing')
+g_patch = mpatches.Patch(color='green', label='Validation')
+plt.legend(handles=[red_patch,b_patch,g_patch])
+plt.xlabel('Degree')
+plt.ylabel("Error")
+plt.title("Least Squares algorithm train,test,validation")
+plt.plot(range(1,16),list_erros_train,'r', label='Training')
+plt.plot(range(1,16),list_erros_valid,'g', label="Validation")
+plt.plot(range(1,16),list_erros_test,'b',label="Testing")
 plt.show()
 
 kFold(X[:200],Y[:200])
