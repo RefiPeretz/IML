@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-@author: Daniel
+@author: Refi
 """
 import numpy as np
 from ex6_tools import DecisionStump, decision_boundaries, view_dtree
